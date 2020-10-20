@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
-"""iterable object"""
+"""iterable object ANy"""
 from typing import Any, Union, Sequence
 
 
 def safe_first_element(lst: Sequence[Any]) -> Union[Any, None]:
-    """ return first element or None """
+    """returns first element of list or None"""
     if lst:
         return lst[0]
     else:
