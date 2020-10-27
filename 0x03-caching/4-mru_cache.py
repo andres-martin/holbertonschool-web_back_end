@@ -16,8 +16,8 @@ class MRUCache(BaseCaching):
     def put(self, key, item):
         ''' self descriptive '''
         if key and item:
-            self.cache_data[key] = item
             self.mru_order[key] = item
+            self.cache_data[key] = item
 
         if len(self.cache_data) > BaseCaching.MAX_ITEMS:
             item_discarded = next(iter(self.mru_order))
@@ -31,7 +31,9 @@ class MRUCache(BaseCaching):
 
     def get(self, key):
         ''' self descriptive '''
+        if not key:
+            return None
+
         if key in self.cache_data:
             self.mru_order.move_to_end(key, False)
-            return self.cache_data[key]
-        return None
+        return self.cache_data[key]
