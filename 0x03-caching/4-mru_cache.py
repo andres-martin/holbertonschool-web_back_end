@@ -31,9 +31,7 @@ class MRUCache(BaseCaching):
 
     def get(self, key):
         ''' self descriptive '''
-        if not key:
-            return None
-
         if key in self.cache_data:
-            self.mru_order.move_to_end(key, False)
-        return self.cache_data[key]
+            self.mru_order.move_to_end(key)
+            return self.cache_data[key]
+        return None
