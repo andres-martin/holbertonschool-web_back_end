@@ -31,5 +31,6 @@ class LRUCache(BaseCaching):
     def get(self, key):
         ''' self descriptive '''
         if key in self.cache_data:
+            self.lru_order.move_to_end(key)
             return self.cache_data[key]
         return None
