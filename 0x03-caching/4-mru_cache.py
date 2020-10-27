@@ -24,7 +24,7 @@ class MRUCache(BaseCaching):
             del self.cache_data[item_discarded]
             print("DISCARD:", item_discarded)
 
-        if len(self.mru_order) > BaseCaching.MAX_ITEMS:
+        if len(self.mru_order) >= BaseCaching.MAX_ITEMS:
             self.mru_order.popitem(last=False)
 
         self.mru_order.move_to_end(key, False)
