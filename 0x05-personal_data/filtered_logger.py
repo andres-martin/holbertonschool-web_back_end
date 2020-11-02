@@ -26,7 +26,7 @@ class RedactingFormatter(logging.Formatter):
 
 
 def get_logger(self) -> logging.Logger:
-
+    '''self descriptive'''
     logger = logging.getLogger("user_data")
     logger.setLevel(logging.INFO)
     logger.propagate = False
