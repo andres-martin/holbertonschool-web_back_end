@@ -64,14 +64,13 @@ def filter_datum(fields: List[str], redaction: str, message: str,
 
 
 def main() -> None:
-
+    '''driver function'''
     db = get_db()
     cursor = db.cursor()
     cursor.execute("SELECT * FROM users;")
 
     headers = [field[0] for field in cursor.description]
     logger = get_logger()
-    print(headers)
 
     for row in cursor:
         info_answer = ''
@@ -85,5 +84,3 @@ def main() -> None:
 
 if __name__ == '__main__':
     main()
-
-
