@@ -76,8 +76,8 @@ def main() -> None:
     for row in cursor:
         info_answer = ''
         for f, p in zip(row, headers):
-            print(f'Hola {p}={(f)}; ')
-        #print(info_answer)
+            info_answer += f'Hola {p}={(f)}; '
+        print(info_answer)
 
     cursor.close()
     db.close()
