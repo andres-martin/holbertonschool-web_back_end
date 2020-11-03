@@ -69,31 +69,13 @@ def main() -> None:
     cursor = db.cursor()
     cursor.execute("SELECT * FROM users;")
 
-    print(cursor)
+    headers = [field[0] for field in cursor.description]
+    logger = get_logger()
+    print(headers)
 
 
 
 if __name__ == '__main__':
     main()
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
