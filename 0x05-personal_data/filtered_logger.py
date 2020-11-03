@@ -74,8 +74,14 @@ def main() -> None:
     print(headers)
 
     for row in cursor:
-        print(row)
+        for f, p in zip(row, headers):
+            print(f)
+            print('---')
+            print(p)
+        # print(row)
 
+    cursor.close()
+    db.close()
 
 
 if __name__ == '__main__':
