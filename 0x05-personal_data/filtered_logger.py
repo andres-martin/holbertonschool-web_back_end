@@ -77,8 +77,7 @@ def main() -> None:
         info_answer = ''
         for f, p in zip(row, headers):
             info_answer += f'{p}={(f)}; '
-        print(info_answer)
-        logger.info(info_answer.strip())
+        logger.info(info_answer)
 
     cursor.close()
     db.close()
