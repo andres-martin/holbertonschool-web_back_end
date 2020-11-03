@@ -76,7 +76,7 @@ def main() -> None:
     for row in cursor:
         info_answer = ''
         for f, p in zip(row, headers):
-            info_answer.join(f"{p}={f}; ")
+            info_answer.join(f'{p}={str(f)}; ')
         print(info_answer)
 
     cursor.close()
