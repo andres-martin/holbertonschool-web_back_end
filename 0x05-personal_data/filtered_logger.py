@@ -73,6 +73,9 @@ def main() -> None:
     logger = get_logger()
     print(headers)
 
+    for row in cursor:
+        print(row)
+
 
 
 if __name__ == '__main__':
