@@ -48,7 +48,7 @@ def get_logger() -> logging.Logger:
     logger.propagate = False
 
     stream_handler = logging.StreamHandler()
-    stream_handler.setFormatter(RedactingFormatter)
+    stream_handler.setFormatter(RedactingFormatter(PII_FIELDS))
     logger.addHandler(stream_handler)
 
     return logger
@@ -78,7 +78,7 @@ def main() -> None:
         for f, p in zip(row, headers):
             info_answer += f'{p}={(f)}; '
         print(info_answer)
-        logger.info(info_answer)
+        logger.info(info_answer.strip())
 
     cursor.close()
     db.close()
