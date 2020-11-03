@@ -74,11 +74,13 @@ def main() -> None:
     print(headers)
 
     for row in cursor:
+        info_answer = ''
         for f, p in zip(row, headers):
             print(f)
             print('---')
             print(p)
-        # print(row)
+            info_answer.join(f"{p}={f}; ")
+        print(info_answer)
 
     cursor.close()
     db.close()
