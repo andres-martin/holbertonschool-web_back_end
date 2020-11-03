@@ -41,7 +41,7 @@ def get_db() -> connection.MySQLConnection:
     return connector
 
 
-def get_logger(self) -> logging.Logger:
+def get_logger() -> logging.Logger:
     '''self descriptive'''
     logger = logging.getLogger("user_data")
     logger.setLevel(logging.INFO)
