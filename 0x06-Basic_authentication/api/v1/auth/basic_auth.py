@@ -7,4 +7,11 @@ from typing import List, TypeVar
 
 class BasicAuth(Auth):
     '''self descriptive'''
-    pass
+
+    def extract_base64_authorization_header(
+            self, authorization_header: str) -> str:
+        '''self descriptive'''
+        if authorization_header and isinstance(
+                authorization_header,
+                str) and authorization_header.startswith("Basic "):
+            return authorization_header[6:]
