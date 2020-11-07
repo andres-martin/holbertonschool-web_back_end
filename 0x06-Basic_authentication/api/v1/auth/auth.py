@@ -22,7 +22,7 @@ class Auth:
 
         for rex in excluded_paths:
             if rex[-1] == '*':
-                if path[:-1] == rex[:-1]:
+                if path.startswith(rex[:-1]):
                     return False
             if rex == path:
                 return False
