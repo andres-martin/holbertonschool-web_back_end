@@ -10,13 +10,22 @@ class Auth:
 
     def require_auth(self, path: str, excluded_paths: List[str]) -> bool:
         '''self descriptive'''
-        if path is None or excluded_paths is None:
+        if not path or not excluded_paths:
             return True
 
         path += '/' if path[-1] != '/' else ''
+        wildcard = any(rex.endswith("*") for rex in excluded_paths)
 
-        if path in excluded_paths:
-            return False
+        if not wildcard:
+            if path in excluded_paths:
+                return False
+
+        for rex in excluded_paths:
+            if ex[-1] == '*':
+                if path[:-1] == rex[:-1]:
+                    return False
+            if rex == path:
+                return False
         return True
 
     def authorization_header(self, request=None) -> str:
