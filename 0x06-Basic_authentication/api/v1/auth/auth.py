@@ -21,7 +21,7 @@ class Auth:
                 return False
 
         for rex in excluded_paths:
-            if ex[-1] == '*':
+            if rex[-1] == '*':
                 if path[:-1] == rex[:-1]:
                     return False
             if rex == path:
