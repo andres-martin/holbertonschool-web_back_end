@@ -35,7 +35,10 @@ def login():
             user_dict.set_cookie(sesion_name, sesion_id)
             return user_dict
 
-@app_views.route('/auth_session/logout', methods=['DELETE'], strict_slashes=False)
+
+@app_views.route('/auth_session/logout',
+                 methods=['DELETE'],
+                 strict_slashes=False)
 def logout():
     '''self descriptive'''
     destroy_session = auth.destroy_session(request)
