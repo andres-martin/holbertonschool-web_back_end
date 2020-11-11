@@ -17,7 +17,7 @@ class SessionAuth(Auth):
         '''self descriptive'''
         if not user_id or not isinstance(user_id, str):
             return None
-        session_id = str(uuid.uuid4())
+        session_id = uuid.uuid4()
         self.user_id_by_session_id[session_id] = user_id
         return session_id
 
@@ -25,4 +25,4 @@ class SessionAuth(Auth):
         '''self descriptive'''
         if not session_id or not isinstance(session_id, str):
             return None
-        return self.user_id_for_session_id.get(session_id)
+        return self.user_id_by_session_id.get(session_id)
