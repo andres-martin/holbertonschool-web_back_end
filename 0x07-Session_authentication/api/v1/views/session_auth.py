@@ -9,7 +9,7 @@ from flask import session
 
 
 @app_views.route('/auth_session/login', methods=['POST'], strict_slashes=False)
-def login() -> str:
+def login():
     """ GET /api/v1/users
     Return:
       - list of all User objects JSON represented
