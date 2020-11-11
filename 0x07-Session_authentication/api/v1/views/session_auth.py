@@ -10,27 +10,28 @@ from flask import session
 
 
 @app_views.route('/auth_session/login', methods=['POST'], strict_slashes=False)
-def auth_session() -> str:
+def login() -> str:
     """ GET /api/v1/users
     Return:
       - list of all User objects JSON represented
     """
     email = request.form.get("email")
-
+    password = request.form.get("password")
     if not email:
         return jsonify({"error": "email missing"}), 400
-    password = request.form.get("password")
     if not password:
         return jsonify({"error": "password missing"}), 400
-    user = User.search({"email": email})
+    users = User.search({"email": email})
 
-    if not user:
-        return jsonify({"error": "no user found for this email"}), 401
-    if not user[0].is_valid_password(password):
-        return jsonify({"error": "wrong password"}), 401
+    if not users:
+        return jsonify(error="no user found for this email"), 401
 
-    sesion_id = auth.create_session(user[0].id)
-    sesion_name = os.getenv("SESSION_NAME")
-    user_dict = jsonify(user[0].to_json())
-    user_dict.set_cookie(sesion_name, sesion_id)
-    return user_dict
+    for user in users:
+        if not user.is_valid_password(password):
+            return jsonify({"error": "wrong password"}), 401
+        else:
+            sesion_id = auth.create_session(user.id)
+            sesion_name = os.getenv("SESSION_NAME")
+            user_dict = jsonify(user.to_json())
+            user_dict.set_cookie(sesion_name, sesion_id)
+            return user_dict
