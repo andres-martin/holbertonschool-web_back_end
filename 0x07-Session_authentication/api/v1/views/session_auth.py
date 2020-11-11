@@ -4,7 +4,6 @@
 from api.v1.views import app_views
 from flask import abort, jsonify, request
 from models.user import User
-from api.v1.app import auth
 import os
 from flask import session
 
@@ -30,6 +29,7 @@ def login() -> str:
         if not user.is_valid_password(password):
             return jsonify({"error": "wrong password"}), 401
         else:
+            from api.v1.app import auth
             sesion_id = auth.create_session(user.id)
             sesion_name = os.getenv("SESSION_NAME")
             user_dict = jsonify(user.to_json())
