@@ -17,12 +17,13 @@ def auth_session() -> str:
     """
     email = request.form.get("email")
     password = request.form.get("password")
-    user = User.search({"email": email})
 
     if not email:
         return jsonify({"error": "email missing"}), 400
     if not password:
         return jsonify({"error": "password missing"}), 400
+    user = User.search({"email": email})
+
     if not user:
         return jsonify({"error": "no user found for this email"}), 401
     if not user[0].is_valid_password(password):
