@@ -37,3 +37,14 @@ class Auth:
     def current_user(self, request=None) -> TypeVar('User'):
         '''self descriptive'''
         return None
+
+    def session_cookie(self, request=None):
+        '''self descriptive'''
+        if not request:
+            return None
+
+        session_name = od.getenv("SESSION_NAME")
+        return request.cookies.get(session_name)
+
+
+
