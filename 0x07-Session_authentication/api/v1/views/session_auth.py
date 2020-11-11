@@ -16,10 +16,10 @@ def auth_session() -> str:
       - list of all User objects JSON represented
     """
     email = request.form.get("email")
-    password = request.form.get("password")
 
     if not email:
         return jsonify({"error": "email missing"}), 400
+    password = request.form.get("password")
     if not password:
         return jsonify({"error": "password missing"}), 400
     user = User.search({"email": email})
