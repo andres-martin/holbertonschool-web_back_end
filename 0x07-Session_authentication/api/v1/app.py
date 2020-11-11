@@ -25,7 +25,6 @@ elif getenv("AUTH_TYPE") == "session_auth":
     auth = SessionAuth()
 
 
-
 @app.errorhandler(404)
 def not_found(error) -> str:
     """ Not found handler
