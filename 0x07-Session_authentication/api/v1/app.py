@@ -16,15 +16,33 @@ app = Flask(__name__)
 app.register_blueprint(app_views)
 CORS(app, resources={r"/api/v1/*": {"origins": "*"}})
 auth = None
+if (getenv("AUTH_TYPE")):
+    if (getenv("AUTH_TYPE") == 'basic_auth'):
+        auth = BasicAuth()
+    elif getenv("AUTH_TYPE") == "auth":
+        auth = Auth()
+    elif getenv("AUTH_TYPE") == "session_auth":
+        auth = SessionAuth()
+    elif getenv("AUTH_TYPE") == "session_exp_auth":
+        auth = SessionExpAuth()
 
-if getenv("AUTH_TYPE") == "auth":
-    auth = Auth()
-elif getenv("AUTH_TYPE") == "basic_auth":
-    auth = BasicAuth()
-elif getenv("AUTH_TYPE") == "session_auth":
-    auth = SessionAuth()
-elif getenv("AUTH_TYPE") == "session_exp_auth":
-    auth = SessionExpAuth()
+
+@app.before_request
+def before_request_func():
+    """[execute before each req]
+    """
+    if auth is not None:
+        excluded = ['/api/v1/status/',
+                    '/api/v1/unauthorized/',
+                    '/api/v1/forbidden/',
+                    '/api/v1/auth_session/login/']
+        if auth.require_auth(request.path, excluded):
+            if (auth.authorization_header(request) is None and
+                    auth.session_cookie(request) is None):
+                abort(401)
+            if auth.current_user(request) is None:
+                abort(403)
+            request.current_user = auth.current_user(request)
 
 
 @app.errorhandler(404)
@@ -35,33 +53,17 @@ def not_found(error) -> str:
 
 
 @app.errorhandler(401)
-def unauthorized(error) -> str:
-    """ Unauthorized handler
+def not_found(error) -> str:
+    """ unauthorized
     """
     return jsonify({"error": "Unauthorized"}), 401
 
 
 @app.errorhandler(403)
-def forbidden(error) -> str:
-    """ Forbidden handler
+def not_found(error) -> str:
+    """ Forbidden
     """
     return jsonify({"error": "Forbidden"}), 403
-
-
-@app.before_request
-def before_request():
-    """ self descriptive
-    """
-    blacklist = ['/api/v1/status/', '/api/v1/unauthorized/',
-                 '/api/v1/forbidden/', '/api/v1/auth_session/login/']
-
-    if auth and auth.require_auth(request.path, blacklist):
-        if not auth.authorization_header(
-                request) and not auth.session_cookie(request):
-            abort(401)
-        if not auth.current_user(request):
-            abort(403)
-    request.current_user = auth.current_user(request)
 
 
 if __name__ == "__main__":
