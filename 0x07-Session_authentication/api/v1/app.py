@@ -27,8 +27,8 @@ elif getenv('AUTH_TYPE') == 'session_exp_auth':
 
 
 @app.before_request
-def before_request_func():
-    """[execute before each req]
+def before_request():
+    """execute before each request
     """
     if auth is not None:
         excluded = ['/api/v1/status/',
@@ -52,14 +52,14 @@ def not_found(error) -> str:
 
 
 @app.errorhandler(401)
-def not_found(error) -> str:
+def unauthorized(error) -> str:
     """ unauthorized
     """
     return jsonify({"error": "Unauthorized"}), 401
 
 
 @app.errorhandler(403)
-def not_found(error) -> str:
+def forbidden(error) -> str:
     """ Forbidden
     """
     return jsonify({"error": "Forbidden"}), 403
