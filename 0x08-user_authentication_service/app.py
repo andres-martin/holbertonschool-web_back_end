@@ -49,7 +49,7 @@ def login() -> str:
 def logout() -> str:
     ''' self descriptive '''
     session_id = request.cookies.get('session_id')
-    logged_in_user = AUTH.get_user_from_session_id(session_id):
+    logged_in_user = AUTH.get_user_from_session_id(session_id)
 
     if logged_in_user:
         AUTH.destroy_session(user.id)
