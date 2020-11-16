@@ -9,10 +9,10 @@ from user import Base, User
 
 
 class DB:
-    '''DB class ORM'''
+    """ DB class ORM with sqlalchemy """
 
     def __init__(self):
-        '''Init method'''
+        """ constructor method """
         self._engine = create_engine("sqlite:///a.db", echo=True)
         Base.metadata.drop_all(self._engine)
         Base.metadata.create_all(self._engine)
@@ -20,14 +20,15 @@ class DB:
 
     @property
     def _session(self):
-        '''session method'''
+        """ session method """
         if self.__session is None:
             DBSession = sessionmaker(bind=self._engine)
             self.__session = DBSession()
         return self.__session
 
     def add_user(self, email: str, hashed_password: str) -> User:
-        '''self descriptive'''
+        """ self descriptive add_user
+        """
         new_user = User(email=email, hashed_password=hashed_password)
         self._session.add(new_user)
         self._session.commit()
