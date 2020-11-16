@@ -14,6 +14,11 @@ def _hash_password(password: str) -> str:
     return salted_password
 
 
+def _generate_uuid() -> str:
+    ''' self descriptive '''
+    return str(uuid4())
+
+
 class Auth:
     """Auth class to interact with the authentication database.
     """
