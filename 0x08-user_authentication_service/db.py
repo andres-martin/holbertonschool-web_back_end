@@ -12,6 +12,7 @@ class DB:
     '''DB class ORM'''
 
     def __init__(self):
+        '''Init method'''
         self._engine = create_engine("sqlite:///a.db", echo=True)
         Base.metadata.drop_all(self._engine)
         Base.metadata.create_all(self._engine)
@@ -19,6 +20,7 @@ class DB:
 
     @property
     def _session(self):
+        '''session method'''
         if self.__session is None:
             DBSession = sessionmaker(bind=self._engine)
             self.__session = DBSession()
