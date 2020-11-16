@@ -30,3 +30,11 @@ class Auth:
             return new_registry
         else:
             raise ValueError(f'User {email} already exists')
+
+    def valid_login(self, email: str, password: str) -> bool:
+        '''self descriptive'''
+        try:
+            self._db.find_user_by(email=email)
+        except NoResultFound:
+            return False
+        return bcrypt.checkpw(password.encode(), _hash_password(password))
