@@ -45,5 +45,3 @@ class DB:
         if record is None:
             raise NoResultFound
         return record
-
-
