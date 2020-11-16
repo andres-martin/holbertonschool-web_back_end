@@ -15,7 +15,7 @@ def root() -> str:
 
 
 @app.route('/users', methods=['POST'], strict_slashes=False)
-def users(email: str, password: str) -> str:
+def users() -> str:
     ''' sefl descriptive '''
     email = request.form.get('email')
     password = request.form.get('password')
