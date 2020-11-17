@@ -100,7 +100,7 @@ def reset_password() -> str:
 
 
 @app.route('/reset_password', methods=['PUT'], strict_slashes=True)
-def reset_password() -> str:
+def update_password() -> str:
     """ PUT /reset_password route """
     try:
         email = request.form.get('email')
