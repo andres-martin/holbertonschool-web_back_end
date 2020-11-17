@@ -79,3 +79,15 @@ class Auth:
         self._db.update_user(user.id, reset_token=token)
 
         return token
+
+    def update_password(self, reset_token: str, password: str) -> None:
+        """ self descriptive update password """
+        if reset_token and password:
+            try:
+                user = self._db.find_user_by(email=email)
+            except NoResultFound:
+                raise ValueError
+            else:
+                hashed_pwd = _hash_password(password)
+                self._db.update_user(
+                    user.id, password=hashed_pwd, reset_token=None)
