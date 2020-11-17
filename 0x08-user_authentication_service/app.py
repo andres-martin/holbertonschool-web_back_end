@@ -48,7 +48,7 @@ def login() -> str:
 @app.route('/sessions', methods=['DELETE'])
 def logout() -> str:
     ''' self descriptive '''
-    session_id = request.form.get("session_id")
+    session_id = request.cookies.get("session_id")
 
     if not session_id:
         abort(403)
