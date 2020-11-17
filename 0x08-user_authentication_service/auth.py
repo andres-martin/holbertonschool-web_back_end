@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-""" Hash password in database
+""" password in database Auth module
 """
 from db import DB
 import bcrypt
@@ -85,7 +85,7 @@ class Auth:
         if not reset_token or not password:
             return None
         try:
-            user = self._db.find_user_by(email=email)
+            user = self._db.find_user_by(reset_token=reset_token)
         except NoResultFound:
             raise ValueError
 
