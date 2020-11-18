@@ -22,6 +22,7 @@ print("User with ID: {} has a Session ID: {}".format(user.id, session_id))
 """ Create a Flask app """
 app = Flask(__name__)
 
+
 @app.route('/', methods=['GET'], strict_slashes=False)
 def root_path():
     """ Root path
@@ -30,6 +31,7 @@ def root_path():
     if request_user is None:
         return "No user found\n"
     return "User found: {}\n".format(request_user.id)
+
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port="5000")
