@@ -79,11 +79,9 @@ class TestIntegrationGithubOrgClient(unittest.TestCase):
 
     def test_public_repos(self):
         """test public repos """
-        pass
 
     def test_public_repos_with_license(self):
         """test public with license"""
-        pass
 
 
 if __name__ == '__main__':
