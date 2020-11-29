@@ -34,7 +34,6 @@ def get_locale():
     return request.accept_languages.best_match(Config.LANGUAGES)
 
 
-@babel.localeselector
 def get_user():
     ''' returns user from mocked db '''
     login_as = request.args.get("login_as", False)
