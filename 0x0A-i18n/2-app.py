@@ -3,6 +3,7 @@
 """
 from flask import Flask, render_template, request
 from flask_babel import Babel
+
 app = Flask(__name__)
 babel = Babel(app)
 
@@ -17,7 +18,7 @@ Babel.default_locale = 'en'
 Babel.default_timezone = 'UTC'
 
 
-@babel.localselector
+@babel.localeselector
 def get_locale():
     ''' get locale from request '''
     return request.accept_language.best_match(Config.LANGUAGES)
