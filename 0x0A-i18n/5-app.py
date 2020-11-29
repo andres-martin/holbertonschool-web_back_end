@@ -24,6 +24,7 @@ users = {
     4: {"name": "Teletubby", "locale": None, "timezone": "Europe/London"},
 }
 
+
 @babel.localeselector
 def get_locale():
     ''' get locale from request '''
@@ -31,6 +32,7 @@ def get_locale():
     if locale:
         return locale
     return request.accept_languages.best_match(Config.LANGUAGES)
+
 
 @babel.localeselector
 def get_user():
@@ -41,6 +43,7 @@ def get_user():
     if user:
         return user
     return None
+
 
 @app.before_request
 def before_request():
