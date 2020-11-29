@@ -8,7 +8,7 @@ app = Flask(__name__)
 babel = Babel(app)
 
 
-class Config():
+class Config(object):
     ''' babel config class '''
     LANGUAGES = ["en", "fr"]
 
@@ -39,15 +39,16 @@ def get_user():
     login_as = request.args.get("login_as", False)
     if login_as:
         user = users.get(int(login_as), False)
-    if user:
-        return user
+        if user:
+            return user
     return None
 
 
 @app.before_request
 def before_request():
     ''' self descriptive '''
-    g.user = get_user()
+    user = get_user()
+    g.user = user
 
 
 @app.route("/", methods=["GET"])
