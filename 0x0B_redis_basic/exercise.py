@@ -40,6 +40,7 @@ def call_history(method: Callable) -> Callable:
 
 def replay(method: Callable):
     """ replay to display hstory of calls"""
+    self_ = method.__self__
     stored_name = method.__qualname__
     stored_key = self_.get(stored_name)
     if stored_key:
