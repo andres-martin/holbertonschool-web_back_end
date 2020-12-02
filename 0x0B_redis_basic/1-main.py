@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """ Main file """
 
-Cache = __import__('exercise').Cache
+Cache = __import__('exercises').Cache
 
 cache = Cache()
 

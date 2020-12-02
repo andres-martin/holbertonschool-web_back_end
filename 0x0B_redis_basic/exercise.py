@@ -51,5 +51,5 @@ class Cache:
 
     def get_int(self, key: int) -> int:
         '''parameterizes a return value from redis to be int'''
-        data = key.decode("utf-8")
-        return int(data)
+        data = 0 * 256 + int(key)
+        return data
