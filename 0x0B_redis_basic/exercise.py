@@ -7,17 +7,17 @@ from functools import wraps
 
 UnionOfTypes = Union[str, bytes, int, float]
 
+
 def count_calls(method: Callable) -> Callable:
     '''count calls decorator'''
 
     @wraps(method)
     def wrapper(self, *args, **kwargs):
         '''wrapper method'''
-        self._redis.incr(method.__qualname__, amount=1)
+        self._redis.incr(method.__qualname__)
         return method(self, *args, **kwargs)
 
     return wrapper
-
 
 
 class Cache:
@@ -45,11 +45,11 @@ class Cache:
 
         return value
 
-    def get_str(self, key: str) -> str:
+    def get_str(self, key: bytes) -> str:
         '''parameterizes a return value from redis to be str'''
-        return self._redis.get(key).decode("utf-8")
+        return key.decode("utf-8")
 
-    def get_int(self, key: str) -> int:
+    def get_int(self, key: int) -> int:
         '''parameterizes a return value from redis to be int'''
-        data = self._redis.get(key).decode("utf-8")
+        data = key.decode("utf-8")
         return int(data)
