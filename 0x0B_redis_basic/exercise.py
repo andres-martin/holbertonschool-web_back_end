@@ -1,55 +1,60 @@
 #!/usr/bin/env python3
-''' Redis server '''
+""" redis module
+"""
 import redis
 from uuid import uuid4
 from typing import Union, Optional, Callable
 from functools import wraps
 
+
 UnionOfTypes = Union[str, bytes, int, float]
 
 
 def count_calls(method: Callable) -> Callable:
-    '''count calls decorator'''
+    """count number of calls
+        Callable: [method] """
+    key = method.__qualname__
 
     @wraps(method)
-    def wrapper(self, *args, **kwargs):
-        '''wrapper method'''
-        self._redis.incr(method.__qualname__)
-        return method(self, *args, **kwargs)
-
+    def wrapper(self, *args, **kwds):
+        """wrapper of decorator [description] """
+        self._redis.incr(key)
+        return method(self, *args, **kwds)
     return wrapper
 
 
 class Cache:
-    '''cache class '''
+    """ cache redis class
+    """
 
     def __init__(self):
-        '''init method'''
+        """ constructor for redis model
+        """
         self._redis = redis.Redis()
         self._redis.flushdb()
 
     @count_calls
     def store(self, data: UnionOfTypes) -> str:
-        '''store to redis the input data'''
-        random_key = str(uuid4())
-        self._redis.set(random_key, data)
+        """store data into redis cache"""
+        key = str(uuid4())
 
-        return random_key
+        self._redis.mset({key: data})
+        return key
 
-    def get(self, key: str, fn: Optional[Callable] = None) -> UnionOfTypes:
-        '''get method to retrive value from redis cache'''
-        value = self._redis.get(key)
-
+    def get(self, key: str, fn: Optional[Callable] = None)\
+            -> UnionOfTypes:
+        """get key from redis"""
         if fn:
-            value = fn(value)
-
-        return value
-
-    def get_str(self, key: bytes) -> str:
-        '''parameterizes a return value from redis to be str'''
-        return key.decode("utf-8")
-
-    def get_int(self, key: int) -> int:
-        '''parameterizes a return value from redis to be int'''
-        data = 0 * 256 + int(key)
+            return fn(self._redis.get(key))
+        data = self._redis.get(key)
         return data
+
+    def get_str(self, string: bytes) -> str:
+        """ get a string """
+        return string.decode("utf-8")
+
+    def get_int(self, numberb: int) -> int:
+        """ get int value"""
+        result = 0
+        result = result * 256 + int(numberb)
+        return result
