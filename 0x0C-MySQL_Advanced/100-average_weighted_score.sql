@@ -5,11 +5,11 @@ DROP PROCEDURE IF EXISTS ComputeAverageWeightedScoreForUser;
 CREATE PROCEDURE ComputeAverageWeightedScoreForUser (IN user_id int)
 BEGIN
     UPDATE users set average_score = (SELECT
-    SUM((c.score) * p.weight) / (SUM(p.weight)) 'avg'
-    FROM corrections as c
-    INNER JOIN projects AS p
-    ON p.id = c.project_id
-    where c.user_id = user_id)
+    SUM((corrections.score) * projects.weight) / (SUM(projects.weight)) 'avg'
+    FROM corrections
+    INNER JOIN projects
+    ON projects.id = corrections.project_id
+    where corrections.user_id = user_id)
     where users.id = user_id;
 END $$
 DELIMITER ;
