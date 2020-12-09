@@ -29,7 +29,7 @@ def log_stats(mongo_collection, option=None):
     print("IPs:")
 
     for ip in mongo_collection.aggregate(PIPE):
-        print(f"\t{ip.get('_id')},: {ip.get('count')}")
+        print(f"\t{ip.get('_id')}: {ip.get('count')}")
 
 
 if __name__ == "__main__":
