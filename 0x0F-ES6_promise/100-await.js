@@ -8,10 +8,10 @@ const asyncUploadUser = async () => {
   try {
     result.photo = await uploadPhoto();
     result.user = await createUser();
+    return result;
   } catch (error) {
     return result;
   }
-  return result;
 };
 
 export default asyncUploadUser;
