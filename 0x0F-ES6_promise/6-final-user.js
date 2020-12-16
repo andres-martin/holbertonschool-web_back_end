@@ -17,7 +17,7 @@ const handleProfileSignup = async (
       value: error.toString(),
     });
   }
-  return result
+  return result;
 };
 
 export default handleProfileSignup;
