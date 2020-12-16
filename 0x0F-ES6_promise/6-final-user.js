@@ -6,12 +6,18 @@ const handleProfileSignup = async (
   lastName = '',
   fileName = '',
 ) => {
-  const data = await Promise.allSettled([
-    signUpUser(firstName, lastName),
-    uploadPhoto(fileName),
-  ]).then((data) => {
-    return data;
-  });
+  const result = [];
+  try {
+    const user = await signUpUser(firstName, lastName);
+    result.push({ status: 'fullfilled', value: user });
+    await uploadPhoto(fileName);
+  } catch (error) {
+    result.push({
+      status: 'rejected',
+      value: `Error: ${fileName} cannot be processed`,
+    });
+  }
+  return result
 };
 
 export default handleProfileSignup;
