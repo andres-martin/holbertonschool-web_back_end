@@ -1,8 +1,8 @@
 import { createUser, uploadPhoto } from './utils';
 
 const asyncUploadUser = async () => {
-  let photo = null;
-  let user = null;
+  const photo = null;
+  const user = null;
 
   const result = { photo, user };
   try {
