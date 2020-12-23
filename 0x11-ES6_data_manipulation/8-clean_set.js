@@ -7,6 +7,6 @@ const cleanSet = (set, string) => {
     }
   }
   return value;
-}
+};
 
 export default cleanSet;
